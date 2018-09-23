@@ -17,3 +17,5 @@ In the terminal enter:
 ```
     python3 folder_icon_maker -i "User/Documents/MacOS_Folder_Icons/resources/github_logo.png" -o "github"
 ```
+to recieve an icns file of this image:
+![icns_example.png]
