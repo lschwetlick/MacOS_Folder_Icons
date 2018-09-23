@@ -20,3 +20,7 @@ In the terminal enter:
 to recieve an icns file of this image:
 
 ![icns_example](icns_example.png)
+
+Then go to the "get Info" menu of the target folder in finder and drag and drop the icns file onto the little generic folder icon in the top left corner of the info box.
+
+Voilà :)
