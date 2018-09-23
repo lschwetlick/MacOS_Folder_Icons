@@ -46,9 +46,24 @@ def superimposeIcon(theme_icon_path):
     (h, w) = rgb_folder.shape[:2]
     (iH, iW) = rgb_icon.shape[:2]
 
+    if iH < 250:
+        print("trying to make a bit larger")
+        newH=250
+        ratio=newH/iH
+        newW=round(iW*ratio)
+        rgb_icon = imresize(rgb_icon, (newH, newW), interp='bilinear', mode=None) 
+    elif iH>700:
+        print("trying to make a bit smaller")
+        newH=700
+        ratio=newH/iH
+        newW=round(iW*ratio)
+        rgb_icon = imresize(rgb_icon, (newH, newW), interp='bilinear', mode=None) 
+    (iH, iW) = rgb_icon.shape[:2]
+    
     # make overlay mask of the same size as the folder icon
+    vert_offset=30
     overlay = np.zeros((h, w, 4), dtype="uint8")
-    overlay[round((h - iH)/2):round((h - iH)/2)+iH, round((w - iW)/2):round((w - iW)/2)+iW] = rgb_icon
+    overlay[round((h - iH)/2)+vert_offset:round((h - iH)/2)+iH+vert_offset, round((w - iW)/2):round((w - iW)/2)+iW] = rgb_icon
 
     # Get individual layers
     (iB, iG, iR, iA) = cv.split(overlay)
@@ -82,7 +97,7 @@ def makeIcns(icon_name, icon):
     icns_path = icns_dir_path + "/" + icon_name + ".iconset"
 
     # try to make that folder
-    if os.path.exists(icns_dir_path + "/" + icon_name + "icns"):
+    if os.path.exists(icns_dir_path + "/" + icon_name + ".icns"):
         raise Exception("That name is taken")
     else:
         os.makedirs(icns_path)
